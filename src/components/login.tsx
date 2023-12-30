@@ -46,7 +46,7 @@ const Login = () => {
                 Password:
                 <input name="password" type="password" value={userData.password} onChange={handleChange} placeholder="Password" />
             </label>
-            <button type="submit" style={{ marginTop: '20px' }}>Register</button>
+            <button type="submit" style={{ marginTop: '20px' }}>Inicia sesión</button>
         </form>
     );
 }

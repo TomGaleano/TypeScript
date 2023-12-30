@@ -1,4 +1,4 @@
-import  { useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -31,32 +31,32 @@ const Register = () => {
         } catch (error) {
             console.error("Error during registration:", error);
         }
-        
+
     };
 
     return (
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', maxWidth: '300px', margin: '0 auto' }}>
             <label>
-                First Name:
-                <input name="first_name" value={userData.first_name} onChange={handleChange} placeholder="First Name" />
+                Tu nombre:
+                <input name="first_name" value={userData.first_name} onChange={handleChange} placeholder="Tu nombre" />
             </label>
             <label>
-                Last Name:
-                <input name="last_name" value={userData.last_name} onChange={handleChange} placeholder="Last Name" />
+                Tu apellido:
+                <input name="last_name" value={userData.last_name} onChange={handleChange} placeholder="Tu apellido" />
             </label>
             <label>
                 Email:
                 <input name="email" type="email" value={userData.email} onChange={handleChange} placeholder="Email" />
             </label>
             <label>
-                Password:
-                <input name="password" type="password" value={userData.password} onChange={handleChange} placeholder="Password" />
+                Contraseña:
+                <input name="password" type="password" value={userData.password} onChange={handleChange} placeholder="Contraseña" />
             </label>
             <label>
-                Phone Number:
-                <input name="phone" type="number" value={userData.phone} onChange={handleChange} placeholder="Phone Number" />
+                Número de teléfono:
+                <input name="phone" type="number" value={userData.phone} onChange={handleChange} placeholder="Número de teléfono" />
             </label>
-            <button type="submit" style={{ marginTop: '20px' }}>Register</button>
+            <button type="submit" style={{ marginTop: '20px' }}>Regístrate</button>
         </form>
     );
 }

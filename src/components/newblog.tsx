@@ -1,15 +1,15 @@
-import { useState } from 'react';
-import axios from 'axios';
+import { useState } from "react";
+import axios from "axios";
+
+interface NewBlogProps {
+    userid: number;
+}
 
 interface BlogData {
     title: string;
     description: string;
     image: string;
     user_id: number;
-}
-
-interface NewBlogProps {
-    userid: number;
 }
 
 const NewBlog = ({ userid }: NewBlogProps) => {
@@ -24,6 +24,21 @@ const NewBlog = ({ userid }: NewBlogProps) => {
         setBlogData({
             ...blogData,
             [event.target.name]: event.target.value,
+        });
+    };
+
+    const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = (event.target.files as FileList)?.[0];
+        const formData = new FormData();
+        formData.append('image', file);
+
+        const response = await axios.post(`http://localhost:3000/api/upload/`, formData, {
+            withCredentials: true,
+        });
+
+        setBlogData({
+            ...blogData,
+            image: response.data.url,
         });
     };
 
@@ -46,8 +61,8 @@ const NewBlog = ({ userid }: NewBlogProps) => {
                 <input type="text" name="description" value={blogData.description} onChange={handleChange} />
             </label>
             <label>
-                Image URL:
-                <input type="text" name="image" value={blogData.image} onChange={handleChange} />
+                Image:
+                <input type="file" name="image" onChange={handleImageUpload} />
             </label>
             <button type="submit">Create</button>
         </form>
