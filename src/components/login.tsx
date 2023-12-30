@@ -1,9 +1,16 @@
-import { useState } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
-const Login = () => {
+export interface LoginProps {
+    className?: string;
+    children?: React.ReactNode;
+}
 
+export const Login = ({
+    className = "",
+    children = null,
+}: LoginProps) => {
     const [userData, setUserData] = useState({
         first_name: "",
         last_name: "",
@@ -13,7 +20,6 @@ const Login = () => {
     });
 
     const navigate = useNavigate();
-
 
     const handleChange = (e: { target: { name: any; value: any; }; }) => {
         setUserData({
@@ -33,22 +39,22 @@ const Login = () => {
         } catch (error) {
             console.error("Error during login:", error);
         }
-        
     };
 
     return (
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', maxWidth: '300px', margin: '0 auto' }}>
-            <label>
-                Email:
-                <input name="email" type="email" value={userData.email} onChange={handleChange} placeholder="Email" />
-            </label>
-            <label>
-                Password:
-                <input name="password" type="password" value={userData.password} onChange={handleChange} placeholder="Password" />
-            </label>
-            <button type="submit" style={{ marginTop: '20px' }}>Inicia sesión</button>
-        </form>
+        <div className={`text-center ${className}`}>
+            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', maxWidth: '300px', margin: '0 auto' }}>
+                <label>
+                    Email:
+                    <input name="email" type="email" value={userData.email} onChange={handleChange} placeholder="Email" />
+                </label>
+                <label>
+                    Password:
+                    <input name="password" type="password" value={userData.password} onChange={handleChange} placeholder="Password" />
+                </label>
+                <button type="submit" style={{ marginTop: '20px' }}>Inicia sesión</button>
+            </form>
+            {children}
+        </div>
     );
-}
-
-export default Login;
+};

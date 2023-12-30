@@ -16,7 +16,15 @@ interface Post {
     };
 }
 
-const UserPosts = () => {
+export interface NewComponentProps {
+    className?: string;
+    children?: React.ReactNode;
+}
+
+export const UserPosts = ({
+    className = "",
+    children = null,
+}: NewComponentProps) => {
     const [posts, setPosts] = useState<Post[]>([]);
 
     useEffect(() => {
@@ -30,7 +38,7 @@ const UserPosts = () => {
     }, []);
 
     return (
-        <div>
+        <div className={`text-center ${className}`}>
             {posts.map((post) => (
                 <div key={post.id}>
                     <h2>{post.title}</h2>
@@ -38,8 +46,7 @@ const UserPosts = () => {
                     <img src={post.image} alt={post.title} />
                 </div>
             ))}
+            {children}
         </div>
     );
 }
-
-export default UserPosts;

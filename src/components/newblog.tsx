@@ -2,6 +2,8 @@ import { useState } from "react";
 import axios from "axios";
 
 interface NewBlogProps {
+    className?: string;
+    children?: React.ReactNode;
     userid: number;
 }
 
@@ -12,7 +14,7 @@ interface BlogData {
     user_id: number;
 }
 
-const NewBlog = ({ userid }: NewBlogProps) => {
+export const NewBlog = ({ userid, className = "", children = null }: NewBlogProps) => {
     const [blogData, setBlogData] = useState<BlogData>({
         title: '',
         description: '',
@@ -51,22 +53,23 @@ const NewBlog = ({ userid }: NewBlogProps) => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <label>
-                Title:
-                <input type="text" name="title" value={blogData.title} onChange={handleChange} />
-            </label>
-            <label>
-                Description:
-                <input type="text" name="description" value={blogData.description} onChange={handleChange} />
-            </label>
-            <label>
-                Image:
-                <input type="file" name="image" onChange={handleImageUpload} />
-            </label>
-            <button type="submit">Create</button>
-        </form>
+        <div className={`text-center ${className}`}>
+            <form onSubmit={handleSubmit}>
+                <label>
+                    Title:
+                    <input type="text" name="title" value={blogData.title} onChange={handleChange} />
+                </label>
+                <label>
+                    Description:
+                    <input type="text" name="description" value={blogData.description} onChange={handleChange} />
+                </label>
+                <label>
+                    Image:
+                    <input type="file" name="image" onChange={handleImageUpload} />
+                </label>
+                <button type="submit">Create</button>
+            </form>
+            {children}
+        </div>
     );
 };
-
-export default NewBlog;

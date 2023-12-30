@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import Blog from "./blog";
-import EditBlog from "./editblog";
-import NewBlog from "./newblog";
-import UserPosts from "./myblog";
-import ViewBlogs from "./viewblogs";
+import { Blog } from './blog';
+import { EditBlog } from "./editblog";
+import { NewBlog } from "./newblog";
+import { UserPosts } from "./myblog";
+import { ViewBlogs } from "./viewblogs";
 
 interface User {
     first_name: string;
@@ -11,7 +11,15 @@ interface User {
     // Add other properties if needed
 }
 
-const Home = () => {
+export interface HomeProps {
+    className?: string;
+    children?: React.ReactNode;
+}
+
+export const Home = ({
+    className = "",
+    children = null,
+}: HomeProps) => {
     const [user, setUser] = useState<User | null>(null);
 
     useEffect(() => {
@@ -23,7 +31,7 @@ const Home = () => {
     }, []);
 
     return (
-        <div>
+        <div className={`text-center ${className}`}>
             <h1>¡Hola {user?.first_name}!</h1>
             <h2>Todos los Blogs</h2>
             <ViewBlogs />
@@ -35,8 +43,7 @@ const Home = () => {
             <EditBlog id="6" />
             <h2>Crear un nuevo Blog</h2>
             {user?.id && <NewBlog userid={user.id} />}
+            {children}
         </div>
     );
-}
-
-export default Home;
+};

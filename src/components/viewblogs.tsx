@@ -16,7 +16,15 @@ interface Post {
     };
 }
 
-const ViewBlogs = () => {
+export interface ViewBlogsProps {
+    className?: string;
+    children?: React.ReactNode;
+}
+
+export const ViewBlogs = ({
+    className = "",
+    children = null,
+}: ViewBlogsProps) => {
     const [posts, setPosts] = useState<Post[]>([]);
     const [page, setPage] = useState(1);
 
@@ -39,7 +47,7 @@ const ViewBlogs = () => {
     };
 
     return (
-        <div>
+        <div className={`text-center ${className}`}>
             {posts.map((post) => (
                 <div key={post.id}>
                     <h2>{post.title}</h2>
@@ -50,8 +58,7 @@ const ViewBlogs = () => {
             ))}
             <button onClick={prevPage}>Previous</button>
             <button onClick={nextPage}>Next</button>
+            {children}
         </div>
     );
 }
-
-export default ViewBlogs;

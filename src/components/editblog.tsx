@@ -8,19 +8,19 @@ interface BlogData {
     user_id: number;
 }
 
-interface EditBlogProps {
+export interface EditBlogProps {
     id: string;
+    className?: string;
+    children?: React.ReactNode;
 }
 
-const EditBlog = ({ id }: EditBlogProps) => {
+export const EditBlog = ({ id, className = "", children = null }: EditBlogProps) => {
     const [blogData, setBlogData] = useState<BlogData>({
         title: '',
         description: '',
         image: '',
         user_id: 0,
     });
-
-
 
     useEffect(() => {
         const getBlog = async () => {
@@ -48,22 +48,23 @@ const EditBlog = ({ id }: EditBlogProps) => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <label>
-                Title:
-                <input type="text" name="title" value={blogData.title} onChange={handleChange} />
-            </label>
-            <label>
-                Description:
-                <input type="text" name="description" value={blogData.description} onChange={handleChange} />
-            </label>
-            <label>
-                Image URL:
-                <input type="text" name="image" value={blogData.image} onChange={handleChange} />
-            </label>
-            <button type="submit">Update</button>
-        </form>
+        <div className={`text-center ${className}`}>
+            <form onSubmit={handleSubmit}>
+                <label>
+                    Title:
+                    <input type="text" name="title" value={blogData.title} onChange={handleChange} />
+                </label>
+                <label>
+                    Description:
+                    <input type="text" name="description" value={blogData.description} onChange={handleChange} />
+                </label>
+                <label>
+                    Image URL:
+                    <input type="text" name="image" value={blogData.image} onChange={handleChange} />
+                </label>
+                <button type="submit">Update</button>
+            </form>
+            {children}
+        </div>
     );
 };
-
-export default EditBlog;

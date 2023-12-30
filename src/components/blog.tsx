@@ -1,5 +1,5 @@
-import  { useState, useEffect } from "react";
-import {  useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 interface User {
@@ -25,9 +25,11 @@ interface ApiResponse {
 
 interface BlogProps {
     id: string;
+    className?: string;
+    children?: React.ReactNode;
 }
 
-const Blog = ({ id }: BlogProps) => {
+export const Blog = ({ id, className = "", children = null }: BlogProps) => {
     const navigate = useNavigate();
     const [blog, setBlog] = useState<ApiResponse | null>(null);
 
@@ -49,7 +51,7 @@ const Blog = ({ id }: BlogProps) => {
     }
 
     return (
-        <div className="container">
+        <div className={`container ${className}`}>
             <div className="row">
                 <div className="col-md-12">
                     <img src={blog?.data.image} alt={blog?.data.title} className="img-fluid" />
@@ -57,10 +59,9 @@ const Blog = ({ id }: BlogProps) => {
                     <h3>{blog?.data.description}</h3>
                     <p>Author: {blog?.data.user.first_name} {blog?.data.user.last_name}</p>
                     <button className="btn btn-danger" onClick={handleDelete}>Delete</button>
+                    {children}
                 </div>
             </div>
         </div>
     );
 }
-
-export default Blog;
