@@ -24,7 +24,7 @@ const EditBlog = ({ id }: EditBlogProps) => {
 
     useEffect(() => {
         const getBlog = async () => {
-            const response = await axios.get(`http://localhost:3000/api/detailpost/${id}`, {
+            const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/detailpost/${id}`, {
                 withCredentials: true,
             });
             setBlogData(response.data.data);
@@ -41,7 +41,7 @@ const EditBlog = ({ id }: EditBlogProps) => {
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
-        const response = await axios.put(`http://localhost:3000/api/updatepost/${id}`, blogData, {
+        const response = await axios.put(`${process.env.REACT_APP_BACKEND_URL}/api/updatepost/${id}`, blogData, {
             withCredentials: true,
         });
         console.log(response.data);

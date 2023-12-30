@@ -21,7 +21,7 @@ const UserPosts = () => {
 
     useEffect(() => {
         const fetchPosts = async () => {
-            const response = await axios.get("http://localhost:3000/api/uniquepost", {
+            const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/uniquepost`, {
                 withCredentials: true});
             setPosts(response.data.data);
         };

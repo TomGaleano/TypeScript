@@ -22,7 +22,7 @@ const ViewBlogs = () => {
 
     useEffect(() => {
         const fetchPosts = async () => {
-            const response = await axios.get(`http://localhost:3000/api/allpost?page=${page}`, {
+            const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/allpost?page=${page}`, {
                 withCredentials: true});
             setPosts(response.data.data);
         };

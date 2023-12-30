@@ -33,7 +33,7 @@ const Blog = ({ id }: BlogProps) => {
 
     useEffect(() => {
         const getBlog = async () => {
-            const response = await axios.get<ApiResponse>(`http://localhost:3000/api/detailpost/${id}`,{
+            const response = await axios.get<ApiResponse>(`${process.env.REACT_APP_BACKEND_URL}/api/detailpost/${id}`,{
                 withCredentials: true,
             });
             setBlog(response.data);
@@ -42,7 +42,7 @@ const Blog = ({ id }: BlogProps) => {
     }, [id]);
 
     const handleDelete = async () => {
-        await axios.delete(`http://localhost:3000/api/deletepost/${id}`,{
+        await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/api/deletepost/${id}`,{
             withCredentials: true,
         });
         navigate("/");

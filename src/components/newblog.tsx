@@ -32,7 +32,7 @@ const NewBlog = ({ userid }: NewBlogProps) => {
         const formData = new FormData();
         formData.append('image', file);
 
-        const response = await axios.post(`http://localhost:3000/api/upload/`, formData, {
+        const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/upload/`, formData, {
             withCredentials: true,
         });
 
