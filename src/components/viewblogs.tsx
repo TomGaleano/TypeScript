@@ -1,5 +1,7 @@
-import { useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import axios from "axios";
+import './ViewBlogs.css';
+
 
 interface Post {
     id: number;
@@ -21,17 +23,15 @@ export interface ViewBlogsProps {
     children?: React.ReactNode;
 }
 
-export const ViewBlogs = ({
-    className = "",
-    children = null,
-}: ViewBlogsProps) => {
+export const ViewBlogs = ({}: ViewBlogsProps) => {
     const [posts, setPosts] = useState<Post[]>([]);
     const [page, setPage] = useState(1);
 
     useEffect(() => {
         const fetchPosts = async () => {
             const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/allpost?page=${page}`, {
-                withCredentials: true});
+                withCredentials: true
+            });
             setPosts(response.data.data);
         };
 
@@ -47,18 +47,23 @@ export const ViewBlogs = ({
     };
 
     return (
-        <div className={`text-center ${className}`}>
-            {posts.map((post) => (
-                <div key={post.id}>
+        <div className="grid-container">
+    {posts.map((post: Post) => (
+        <div key={post.id} className="grid-item">
+            <article className="cta">
+                <img src={post.image} alt={post.title} />
+                <div className="cta__text-column">
                     <h2>{post.title}</h2>
                     <p>{post.description}</p>
-                    <img src={post.image} alt={post.title} />
-                    <p>Author: {post.user.first_name} {post.user.last_name}</p>
+                    <p>Autor: {post.user.first_name} {post.user.last_name}</p>
+                    <a href="#">Míralo</a>
                 </div>
-            ))}
-            <button onClick={prevPage}>Previous</button>
-            <button onClick={nextPage}>Next</button>
-            {children}
+            </article>
         </div>
+    ))}
+    <button onClick={prevPage}>Previous Page</button>
+    <button onClick={nextPage}>Next Page</button>
+</div>
     );
+
 }

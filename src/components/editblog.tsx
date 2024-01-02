@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import './Blog.css';
 
 interface BlogData {
     title: string;
@@ -48,23 +49,36 @@ export const EditBlog = ({ id, className = "", children = null }: EditBlogProps)
     };
 
     return (
-        <div className={`text-center ${className}`}>
-            <form onSubmit={handleSubmit}>
-                <label>
-                    Title:
-                    <input type="text" name="title" value={blogData.title} onChange={handleChange} />
-                </label>
-                <label>
-                    Description:
-                    <input type="text" name="description" value={blogData.description} onChange={handleChange} />
-                </label>
-                <label>
-                    Image URL:
-                    <input type="text" name="image" value={blogData.image} onChange={handleChange} />
-                </label>
-                <button type="submit">Update</button>
-            </form>
-            {children}
+        <div className={`container ${className}`}>
+            <div className="row">
+                <div className="col-md-12">
+                    <article className="cta">
+                        <img src={blogData.image} alt={blogData.title} />
+                        <div className="cta__text-column">
+                            <form onSubmit={handleSubmit}>
+                                <label>
+                                    <input type="text" name="title" value={blogData.title} onChange={handleChange} style={{ fontSize: '2rem', backgroundColor: 'white', color: 'black' }} />
+                                </label>
+                                <label>
+                                    <input
+                                        type="text"
+                                        name="description"
+                                        value={blogData.description}
+                                        onChange={handleChange}
+                                        style={{ backgroundColor: 'white', color: 'black' }}
+                                    />
+                                </label>
+                                <label>
+                                    Image URL:
+                                    <input type="text" name="image" value={blogData.image} onChange={handleChange} />
+                                </label>
+                                <button type="submit">Guardar cambios</button>
+                            </form>
+                        </div>
+                    </article>
+                    {children}
+                </div>
+            </div>
         </div>
     );
 };

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import './MyBlog.css';
 
 interface Post {
     id: number;
@@ -38,13 +39,19 @@ export const UserPosts = ({
     }, []);
 
     return (
-        <div className={`text-center ${className}`}>
-            {posts.map((post) => (
-                <div key={post.id}>
-                    <h2>{post.title}</h2>
-                    <p>{post.description}</p>
+        <div className={`grid-container ${className}`}>
+            {posts.map((post: Post) => (
+                <div key={post.id} className="grid-item">
+                <article className="cta">
                     <img src={post.image} alt={post.title} />
-                </div>
+                    <div className="cta__text-column">
+                        <h2>{post.title}</h2>
+                        <p>{post.description}</p>
+                        <p>Autor: {post.user.first_name} {post.user.last_name}</p>
+                        <a href="#">Míralo</a>
+                    </div>
+                </article>
+            </div>
             ))}
             {children}
         </div>
